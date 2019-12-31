@@ -1,3 +1,5 @@
+// http requests with async/await
+
 const https = require('https');
 const API_KEY = '27d8e951e73c4f4f8257613f256be3af';
 
@@ -9,7 +11,7 @@ const options = {
 
 
 async function requestsAsync(url) {
-    return await new Promise((resolve, reject) => {
+    let prom = await new Promise((resolve, reject) => {
         https.get(url, options, (res) => {
 
             let body = [];
@@ -18,6 +20,8 @@ async function requestsAsync(url) {
 
         }).on('error', (error) => reject(error));
     })
+    // console.log('is await working ? ');
+    return prom;
 }
 
 requestsAsync('https://newsapi.org/v2/top-headlines?country=us')
